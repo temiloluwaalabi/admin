@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline, ThemeProvider } from "@mui/material"
+import { createTheme } from "@mui/material/styles"
+import { useEffect, useMemo } from "react"
+import { useSelector } from "react-redux"
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
+import AddCourse from "scenes/addCourse"
+import Courses from "scenes/courses";
+import Dashboard from "scenes/dasboard";
+import Layout from "scenes/layout";
+import Login from "scenes/login"
+import Users from "scenes/users"
+import { useDispatch } from "react-redux"
+import { themeSettings } from "theme";
+import { setCourses } from "state"
+import { useGetCoursesQuery } from "state/api"
+import Modules from "scenes/modules"
+import AddModules from "scenes/modules"
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch()
+  const mode = useSelector((state) => state.global.mode);
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  const isAuth = Boolean(useSelector((state) => state.token));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path = "/courses" element={<Courses />} />
+              <Route path = "/users" element={<Users />} />
+              <Route path ="/add-courses" element={<AddCourse />} />
+              <Route path = "/modules" element={<AddModules />} />
+            </Route>
+            <Route path="/register" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </ThemeProvider>
+      </BrowserRouter>
+      
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
