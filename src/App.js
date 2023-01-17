@@ -29,12 +29,18 @@ const App = () => {
           <CssBaseline />
           <Routes>
             <Route element={<Layout />}>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/" element={<Navigate to="/courses" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path = "/courses" element={<Courses />} />
               <Route path = "/users" element={<Users />} />
               <Route path ="/add-courses" element={<AddCourse />} />
               <Route path = "/modules" element={<AddModules />} />
+              <Route path = "/overview" element={<AddModules />} />
+              <Route path = "/add-modules" element={<AddModules />} />
+              <Route path = "/add-users" element={<AddModules />} />
+              <Route path = "/update" element={<AddModules />} />
+              <Route path = "/settings" element={<AddModules />} />
+              <Route path = "/website-settings" element={<AddModules />} />
             </Route>
             <Route path="/register" element={<Login />} />
             <Route path="/login" element={<Login />} />

@@ -49,7 +49,7 @@ const CourseWidget = ({
             justifyContent="space-between"
             mb="1rem"
           >
-            <DeleteOutlined sx={{fontSize:'23px'}} onClick={() => deleteCourse({_id})} />
+            <DeleteOutlined sx={{fontSize:'23px'}} onClick={() => deleteCourse(_id)} />
             
             <Edit  sx={{fontSize:'23px'}} />
           </Box>
