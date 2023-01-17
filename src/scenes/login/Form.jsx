@@ -17,14 +17,13 @@ import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 
 const registerSchema = yup.object().shape({
-  username: yup.string().required("required"),
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
+  firstname: yup.string().required("required"),
+  lastname: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
+  password: yup.string().required("required"),
   gender: yup.string().required("required"),
   phone: yup.string().required("required"),
-  password: yup.string().required("required"),
-  picture: yup.string().required("required"),
+  username: yup.string().required("required"),
 });
 
 const loginSchema = yup.object().shape({
@@ -33,7 +32,6 @@ const loginSchema = yup.object().shape({
 });
 
 const initialValuesRegister = {
-  username: "",
   firstname: "",
   lastname: "",
   email: "",
@@ -50,10 +48,6 @@ const initialValuesLogin = {
 
 const Form = () => {
   const [pageType, setPageType] = useState("login");
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [displayFile, setDisplayFile] = useState(null);
-  const [loading, setLoading] = useState(0);
-  const [uploadedImage, setUploadedImage] = useState(null);
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,17 +55,16 @@ const Form = () => {
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
 
-
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
     const formData = new FormData();
     for (let value in values) {
       formData.append(value, values[value]);
     }
-    formData.append("picture", values.picture.name);
+    formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/registerAdmin",
+      "http://localhost:5800/auth/register",
       {
         method: "POST",
         body: formData,
@@ -96,11 +89,10 @@ const Form = () => {
     if (loggedIn) {
       dispatch(
         setLogin({
-          user: loggedIn.foundUser,
+          user: loggedIn.user,
           token: loggedIn.accessToken,
         })
       );
-      console.log("Loggeed In")
       navigate("/dashboard");
     }
   };
@@ -109,6 +101,7 @@ const Form = () => {
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
+
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -125,7 +118,7 @@ const Form = () => {
         setFieldValue,
         resetForm,
       }) => (
-        <form onSubmit={handleSubmit}>
+        <form>
           <Box
             display="grid"
             gap="30px"
@@ -137,54 +130,50 @@ const Form = () => {
             {isRegister && (
               <>
                 <TextField
-                autoComplete="off"
                   label="First Name"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.firstName}
-                  name="firstName"
+                  value={values.firstname}
+                  name="firstname"
                   error={
-                    Boolean(touched.firstName) && Boolean(errors.firstName)
+                    Boolean(touched.firstname) && Boolean(errors.firstname)
                   }
-                  helperText={touched.firstName && errors.firstName}
+                  helperText={touched.firstname && errors.firstname}
                   sx={{ gridColumn: "span 2" }}
                 />
                 <TextField
-                  autoComplete="off"
                   label="Last Name"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.lastName}
-                  name="lastName"
-                  error={Boolean(touched.lastName) && Boolean(errors.lastName)}
-                  helperText={touched.lastName && errors.lastName}
+                  value={values.lastname}
+                  name="lastname"
+                  error={Boolean(touched.lastname) && Boolean(errors.lastname)}
+                  helperText={touched.lastname && errors.lastname}
                   sx={{ gridColumn: "span 2" }}
                 />
                 <TextField
-                  autoComplete="off"
                   label="Location"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.location}
-                  name="location"
-                  error={Boolean(touched.location) && Boolean(errors.location)}
-                  helperText={touched.location && errors.location}
+                  value={values.gender}
+                  name="gender"
+                  error={Boolean(touched.gender) && Boolean(errors.gender)}
+                  helperText={touched.gender && errors.gender}
                   sx={{ gridColumn: "span 4" }}
                 />
                 <TextField
-                  autoComplete="off"
                   label="Occupation"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.occupation}
-                  name="occupation"
+                  value={values.phone}
+                  name="phone"
                   error={
-                    Boolean(touched.occupation) && Boolean(errors.occupation)
+                    Boolean(touched.phone) && Boolean(errors.phone)
                   }
-                  helperText={touched.occupation && errors.occupation}
+                  helperText={touched.phone && errors.phone}
                   sx={{ gridColumn: "span 4" }}
                 />
-                <Box
+                {/* <Box
                   gridColumn="span 4"
                   border={`1px solid ${palette.neutral.medium}`}
                   borderRadius="5px"
@@ -216,23 +205,21 @@ const Form = () => {
                       </Box>
                     )}
                   </Dropzone>
-                </Box>
+                </Box> */}
               </>
             )}
 
             <TextField
-              autoComplete="off"
               label="Username"
               onBlur={handleBlur}
               onChange={handleChange}
-              // value={values.username}
+              value={values.username}
               name="username"
               error={Boolean(touched.username) && Boolean(errors.username)}
               helperText={touched.username && errors.username}
               sx={{ gridColumn: "span 4" }}
             />
             <TextField
-            autoComplete="off"
               label="Password"
               type="password"
               onBlur={handleBlur}
