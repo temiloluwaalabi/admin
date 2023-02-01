@@ -6,8 +6,6 @@ const initialState = {
     token: null,
     courses: []
     // userId: null,
-
-
 };
 
 export const globalSlice = createSlice({
@@ -18,8 +16,9 @@ export const globalSlice = createSlice({
             state.mode = state.mode === 'light' ? 'dark' : 'light'
         },
         setLogin: (state, action) => {
-            state.user = action.payload.user
-            state.token = action.payload.token
+            const { user, accessToken } = action.payload
+            state.user = user
+            state.token = accessToken
         },
         setLogout: (state, action) => {
             state.user = null

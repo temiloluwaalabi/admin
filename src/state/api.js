@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import { useDispatch } from "react-redux";
 
 export const api = createApi({
-    baseQuery: fetchBaseQuery({baseUrl: "https://pass-apk-api.onrender.com"}),
+    baseQuery: fetchBaseQuery({baseUrl: "http://localhost:5800"}),
     reducerPath: "adminApi",
     tagTypes: ["User", "Courses", "Users"],
     endpoints: (build) => ({
@@ -11,7 +12,7 @@ export const api = createApi({
         }),
         getCourse: build.query({
             query: (id) => `api/courses/${id}`,
-            providesTags: ["User"]
+            providesTags: ["Courses"]
         }),
         getCourses: build.query({
             query: () => "api/courses",
@@ -26,21 +27,35 @@ export const api = createApi({
                 url: '/api/courses/create',
                 method: 'POST',
                 body: course
-            })
+            }),
+            invalidatesTags:['Courses']
+        }),
+        addUser: build.mutation({
+            query: (user) => ({
+                url: '/api/user/create',
+                method: 'POST',
+                body: user
+            }),
+            invalidatesTags:['Users']
         }),
         updateCourse: build.mutation({
-            query: (course) => ({
-                url: `/api/courses/update/${course.id}`,
+            query: (
+              courseData 
+                ) => ({
+                url: `/api/courses/update/${courseData.id}`,
                 method: 'PATCH',
-                body: course
-            })
+                body: courseData
+                
+            }),
+            invalidatesTags:['Courses']
         }),
         deleteCourse: build.mutation({
             query: (id) => ({
                 url: `/api/courses/${id}`,
                 method: 'DELETE',
                 body: id
-            })
+            }),
+            invalidatesTags:['Courses']
         }),
 
     })
@@ -53,6 +68,9 @@ export const {
     useGetUsersQuery,
     useAddCourseMutation,
     useUpdateCourseMutation,
-    useDeleteCourseMutation
+    useDeleteCourseMutation,
+    useAddUserMutation
 
 } = api;
+
+

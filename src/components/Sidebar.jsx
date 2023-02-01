@@ -1,4 +1,5 @@
 import React from 'react'
+import logo from "../assets/logo.png"
 import {
     Box,
     Divider,
@@ -57,45 +58,47 @@ const navItems = [
         icon: <Person2Outlined />,
     },
     {
-        text: "Modules",
-        icon: <ReceiptLongOutlined />,
-    },
-    {
-        text: "Overview",
-        icon: <PublicOutlined />,
-    },
-    {
-        text: "Creation",
-        icon: null,
-    },
-    {
         text: "Add Courses",
         icon: <PointOfSaleOutlined />,
-    },
-    {
-        text: "Add Modules",
-        icon: <TodayOutlined />,
     },
     {
         text: "Add Users",
         icon: <CalendarMonthOutlined />,
     },
-    {
-        text: "Update",
-        icon: <PieChartOutlined />,
-    },
-    {
-        text: "Management",
-        icon: null,
-    },
-    {
-        text: "Settings",
-        icon: <AdminPanelSettingsOutlined />,
-    },
-    {
-        text: "Website Settings",
-        icon: <TrendingUpOutlined />,
-    },
+    // {
+    //     text: "Modules",
+    //     icon: <ReceiptLongOutlined />,
+    // },
+    // {
+    //     text: "Overview",
+    //     icon: <PublicOutlined />,
+    // },
+    // {
+    //     text: "Creation",
+    //     icon: null,
+    // },
+    
+    // {
+    //     text: "Add Modules",
+    //     icon: <TodayOutlined />,
+    // },
+   
+    // {
+    //     text: "Update",
+    //     icon: <PieChartOutlined />,
+    // },
+    // {
+    //     text: "Management",
+    //     icon: null,
+    // },
+    // {
+    //     text: "Settings",
+    //     icon: <AdminPanelSettingsOutlined />,
+    // },
+    // {
+    //     text: "Website Settings",
+    //     icon: <TrendingUpOutlined />,
+    // },
 ];
 
 const Sidebar = ({
@@ -135,10 +138,8 @@ const Sidebar = ({
                     <Box width="100%">
                         <Box m="1.5rem 2rem 2rem 2rem">
                             <FlexBetween color={theme.palette.secondary.main}>
-                                <Box display="flex" alignItems="center" gap="0.5rem">
-                                    <Typography variant="h4" fontWeight="bold">
-                                        AEEKI
-                                    </Typography>
+                                <Box display="flex" justifyContent="center" alignItems="center" gap="0.5rem">
+                                    <img src={logo} width="150px"  />
                                 </Box>
                                 {!isNonMobile && (
                                     <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)} >

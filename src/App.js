@@ -15,6 +15,9 @@ import { setCourses } from "state"
 import { useGetCoursesQuery } from "state/api"
 import Modules from "scenes/modules"
 import AddModules from "scenes/modules"
+import AddCourses from "scenes/addCourse/AddCourse"
+import AddUser from "scenes/addUser"
+import EditCourse from "scenes/updateCourse"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -33,11 +36,13 @@ const App = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path = "/courses" element={<Courses />} />
               <Route path = "/users" element={<Users />} />
-              <Route path ="/add-courses" element={<AddCourse />} />
+              <Route path ="/add-courses" element={<AddCourses />} />
               <Route path = "/modules" element={<AddModules />} />
               <Route path = "/overview" element={<AddModules />} />
+              {/* <Route path = "/add-courses" element={<AddModules />} /> */}
               <Route path = "/add-modules" element={<AddModules />} />
-              <Route path = "/add-users" element={<AddModules />} />
+              <Route path = "/add-users" element={<AddUser />} />
+              <Route path = "/courses/:id" element={<EditCourse />} />
               <Route path = "/update" element={<AddModules />} />
               <Route path = "/settings" element={<AddModules />} />
               <Route path = "/website-settings" element={<AddModules />} />

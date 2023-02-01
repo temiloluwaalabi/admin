@@ -33,24 +33,30 @@ const Users = () => {
         headerName: "Email",
         flex: 1
     },
+  
     // { 
     //     field: "enrolledCourses",
     //     headerName: "Enrolled Courses",
     //     flex: 1
     // },
     // { 
-    //     field: "phoneNumber",
+    //     field: "phone",
     //     headerName: "Phone Number",
     //     flex: 1,
     //     renderCell: (params) => {
     //         return params.value.replace(/^(\d{2})(\d{3})(\d{4})/, "($1)$2-$3")
     //     }
     // },
-    // { 
-    //     field: "country",
-    //     headerName: "Country",
-    //     flex: 0.4
-    // }
+    { 
+        field: "country",
+        headerName: "Country",
+        flex: 0.4
+    },
+    { 
+        field: "user_gender",
+        headerName: "Gender",
+        flex: 0.4
+    }
     ]
   
   return (
@@ -60,12 +66,41 @@ const Users = () => {
         <Box
             mt="40px" 
             height="75vh"
+            sx={{
+                "& .MuiDataGrid-root": {
+                  border: "none",
+                },
+                "& .MuiDataGrid-cell": {
+                  borderBottom: "none",
+                },
+                "& .MuiDataGrid-columnHeaders": {
+                  backgroundColor: theme.palette.background.alt,
+                  color: theme.palette.secondary[100],
+                  borderBottom: "none",
+                },
+                "& .MuiDataGrid-virtualScroller": {
+                  backgroundColor: theme.palette.primary.light,
+                },
+                "& .MuiDataGrid-footerContainer": {
+                  backgroundColor: theme.palette.background.alt,
+                  color: theme.palette.secondary[100],
+                  borderTop: "none",
+                },
+                "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                  color: `${theme.palette.secondary[200]} !important`,
+                },
+              }}
         >
             <DataGrid
                 loading={isLoading || !data}
                 getRowId = {(row) => row._id}
                 rows = {data || []}
                 columns={columns}
+                pageSize={7}
+                rowsPerPageOptions={[7]}
+                checkboxSelection
+                disableSelectionOnClick
+                experimentalFeatures={{ newEditingApi: true }}
             >
 
             </DataGrid>

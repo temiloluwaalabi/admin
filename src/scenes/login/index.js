@@ -1,6 +1,7 @@
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import Form from "./Form";
-
+import logo from "../../assets/logo.png"
+import LoginUser from "./Login";
 const Login = () => {
     const theme = useTheme();
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
@@ -13,7 +14,8 @@ const Login = () => {
       textAlign="center"
     >
       <Typography fontWeight="bold" fontSize="32px" color="primary">
-        Aeeki
+      <img src={logo} width="150px"  />
+
       </Typography>
     </Box>
 
@@ -27,7 +29,7 @@ const Login = () => {
       <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
         Welcome to Aeeki LMS Admin Portal, the path to exellence!
       </Typography>
-      <Form />
+      <LoginUser />
     </Box>
   </Box>
   )
